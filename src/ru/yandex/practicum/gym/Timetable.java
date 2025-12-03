@@ -4,25 +4,34 @@ import java.util.*;
 
 public class Timetable {
 
-    private HashMap<DayOfWeek, TreeMap<TimeOfDay, TrainingSession>> timetable;
+    private HashMap<DayOfWeek, TreeMap<TimeOfDay, ArrayList<TrainingSession>>> timetable;
 
     public void addNewTrainingSession(TrainingSession trainingSession) {
         DayOfWeek day = trainingSession.getDayOfWeek();
-        TreeMap<TimeOfDay, TrainingSession> sessionsOfTheDay;
+        TimeOfDay time = trainingSession.getTimeOfDay();
+        TreeMap<TimeOfDay, ArrayList<TrainingSession>> sessionsOfTheDay;
+        ArrayList<TrainingSession> sessionsOfTheTime;
         if (timetable.containsKey(day)) {
             sessionsOfTheDay = timetable.get(day);
         } else {
             sessionsOfTheDay = new TreeMap<>();
             timetable.put(day, sessionsOfTheDay);
         }
-        sessionsOfTheDay.put(trainingSession.getTimeOfDay(), trainingSession);
+        if (sessionsOfTheDay.containsKey(time)) {
+            sessionsOfTheTime = sessionsOfTheDay.get(time);
+        } else {
+            sessionsOfTheTime = new ArrayList<>();
+            sessionsOfTheDay.put(time, sessionsOfTheTime);
+        }
+        sessionsOfTheTime.add(trainingSession);
     }
 
-    public /* непонятно, что возвращать */ getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
-        //как реализовать, тоже непонятно, но сложность должна быть О(1)
+    public TreeMap<TimeOfDay, ArrayList<TrainingSession>> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
+        return timetable.get(dayOfWeek);
     }
 
-    public /* непонятно, что возвращать */ getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
-        //как реализовать, тоже непонятно, но сложность должна быть О(1)
+    public ArrayList<TrainingSession> getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
+        TreeMap<TimeOfDay, ArrayList<TrainingSession>> trainingSessionsForDay = timetable.get(dayOfWeek);
+        return trainingSessionsForDay.get(timeOfDay);
     }
 }

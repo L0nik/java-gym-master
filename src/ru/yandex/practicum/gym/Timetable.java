@@ -4,10 +4,18 @@ import java.util.*;
 
 public class Timetable {
 
-    private /* как это хранить??? */ timetable;
+    private HashMap<DayOfWeek, TreeMap<TimeOfDay, TrainingSession>> timetable;
 
     public void addNewTrainingSession(TrainingSession trainingSession) {
-        //сохраняем занятие в расписании
+        DayOfWeek day = trainingSession.getDayOfWeek();
+        TreeMap<TimeOfDay, TrainingSession> sessionsOfTheDay;
+        if (timetable.containsKey(day)) {
+            sessionsOfTheDay = timetable.get(day);
+        } else {
+            sessionsOfTheDay = new TreeMap<>();
+            timetable.put(day, sessionsOfTheDay);
+        }
+        sessionsOfTheDay.put(trainingSession.getTimeOfDay(), trainingSession);
     }
 
     public /* непонятно, что возвращать */ getTrainingSessionsForDay(DayOfWeek dayOfWeek) {

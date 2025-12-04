@@ -8,6 +8,15 @@ import java.util.*;
 public class TimetableTest {
 
     @Test
+    void testGetTrainingSessionsForDayNoSessions() {
+        Timetable timetable = new Timetable();
+
+        for (DayOfWeek day : DayOfWeek.values()) {
+            Assertions.assertNull(timetable.getTrainingSessionsForDay(day));
+        }
+    }
+
+    @Test
     void testGetTrainingSessionsForDaySingleSession() {
         Timetable timetable = new Timetable();
 

@@ -27,12 +27,19 @@ public class Timetable {
     }
 
     public TreeMap<TimeOfDay, ArrayList<TrainingSession>> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
-        return timetable.get(dayOfWeek);
+        if (timetable.containsKey(dayOfWeek)) {
+            return timetable.get(dayOfWeek);
+        } else {
+            return new TreeMap<TimeOfDay, ArrayList<TrainingSession>>();
+        }
     }
 
     public ArrayList<TrainingSession> getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
-        TreeMap<TimeOfDay, ArrayList<TrainingSession>> trainingSessionsForDay = timetable.get(dayOfWeek);
-        return trainingSessionsForDay.get(timeOfDay);
+        if (timetable.containsKey(dayOfWeek) && timetable.get(dayOfWeek) != null) {
+            return timetable.get(dayOfWeek).get(timeOfDay);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public ArrayList<CounterOfTrainings> getCountByCoaches() {

@@ -12,7 +12,7 @@ public class TimetableTest {
         Timetable timetable = new Timetable();
 
         for (DayOfWeek day : DayOfWeek.values()) {
-            Assertions.assertNull(timetable.getTrainingSessionsForDay(day));
+            Assertions.assertTrue(timetable.getTrainingSessionsForDay(day).isEmpty());
         }
     }
 
@@ -34,7 +34,7 @@ public class TimetableTest {
         Assertions.assertEquals(1, trainingSessionsForTime.size());
 
         //Проверить, что за вторник не вернулось занятий
-        Assertions.assertNull(timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY));
+        Assertions.assertTrue(timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY).isEmpty());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class TimetableTest {
         Assertions.assertEquals(new TimeOfDay(20, 0), timeOfDayArray[1]);
 
         // Проверить, что за вторник не вернулось занятий
-        Assertions.assertNull(timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY));
+        Assertions.assertTrue(timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY).isEmpty());
     }
 
     @Test
